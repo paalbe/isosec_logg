@@ -80,6 +80,7 @@ class isosec_logg
         $tz = new DateTimeZone(get_option('timezone_string'));
         $dt = new DateTime("now", $tz);
         $dict['isosec-datotid'] = $dt->format("Y-m-d H:i:s");
+        $dict['tidssone'] = get_option('timezone_string');
                 
         $atts = array_change_key_case((array) $attr, CASE_LOWER);
         try {
@@ -91,8 +92,7 @@ class isosec_logg
         }
 
         //$page .= "<p> DateTime " . $dt->format("Y-m-d H:i:s") . "</p>";
-
-        $page .= "<p> timezone " . get_option('timezone_string') . "</p>";
+        //$page .= "<p> timezone " . get_option('timezone_string') . "</p>";
 
         return $page;
     }
