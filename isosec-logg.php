@@ -77,23 +77,20 @@ class isosec_logg
         $html = 0;
         $mydir = dirname(__FILE__);
         require_once($mydir . '/classes/itsw-html.php');
+        $tz = new DateTimeZone(get_option('timezone_string'));
+        $dt = new DateTime("now", $tz);
+        $dict['isosec-datotid'] = $dt->format("Y-m-d H:i:s");
+                
         $atts = array_change_key_case((array) $attr, CASE_LOWER);
         try {
             $html = new ITSW_html();
             $page = $html->getTemplate($mydir . "/html/isosec-logg.html", "main");
+            $page = $html->replaceSymbols($dict, $page);
         } catch (Exception $e) {
             $page .= "Error " . $e->getMessage() . "<br>";
         }
 
-        date_default_timezone_set('Europe/Oslo');
-        $date = date('Y-m-d H:i:s');
-
-        $page .= "<p>" . $date . "</p>";
-
-        $tz = new DateTimeZone(get_option('timezone_string'));
-        $dt = new DateTime("now", $tz);
-
-        $page .= "<p> DateTime " . $dt->format("Y-m-d H:i:s") . "</p>";
+        //$page .= "<p> DateTime " . $dt->format("Y-m-d H:i:s") . "</p>";
 
         $page .= "<p> timezone " . get_option('timezone_string') . "</p>";
 
