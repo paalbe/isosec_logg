@@ -84,8 +84,8 @@ class isosec_logg
                 
         $atts = array_change_key_case((array) $attr, CASE_LOWER);
         try {
-            $html = new ITSW_html();
-            $page = $html->getTemplate($mydir . "/html/isosec-logg.html", "main");
+            $html = new ITSW_html($mydir . '/html');
+            $page = $html->getTemplate("isosec-logg.html", "main");
             $page = $html->replaceSymbols($dict, $page);
         } catch (Exception $e) {
             $page .= "Error " . $e->getMessage() . "<br>";
